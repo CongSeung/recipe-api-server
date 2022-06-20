@@ -1,3 +1,4 @@
+from datetime import datetime
 from http import HTTPStatus
 from flask import request
 from flask_jwt_extended import create_access_token
@@ -85,6 +86,9 @@ class UserRegisterResource(Resource):
         # JWT 로 암호화 해서 보내준다.
         # 암호화 하는 방법
         access_token = create_access_token(user_id)
+
+        # JWT_ACCESS_TOKEN_EXPIRES 를 True로 두고 
+        # create_access_token(user_id, expires_delta=datetime.timedelta(minutes= 1)) 을 하면 1분이 지나면 로그아웃된다.
 
         return {'result' : 'success', 
                 'access_token' : access_token }, 200
